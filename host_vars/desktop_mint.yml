@@ -1,0 +1,498 @@
+### select roles to install
+#  anki_install_role: true
+#  arc_darkest_theme_install_role: true
+#  chromium_install_role: true
+#  discord_install_role: true
+#  docker_install_role: true
+#  dotfiles_install_role: false
+#  firefox_install_role: true
+#  fonts_install_role: true
+#  fzf_install_role: true
+#  gimp_install_role: true
+#  git_install_role: true
+#  i3_install_role: true
+#  jetbrains_install_role: true
+#  mpd_install_role: true
+#  packer_install_role: true
+#  polybar_install_role: true
+#  qemu_install_role: true
+#  ranger_install_role: true
+# rtorrent_install_role: false
+#  thunderbird_install_role: true
+# transmission_install_role: false
+#  ubuntu_setup_install_role: true
+#  urxvt_install_role: true
+#  vagrant_install_role: true
+#  vim_install_role: true
+#  virtualbox_install_role: true
+#  vscode_install_role: true
+#  xdg_install_role: true
+#  youtubedl_install_role: true
+#  zathura_install_role: true
+#  zotero_install_role: true
+#  zsh_install_role: true
+
+# path: $PATH:$HOME/bin
+
+### debian apt repositories
+apt_repo_repositories: []
+
+### systemd services
+systemd_enabled: []
+systemd_disabled: []
+
+### system python versions
+python_2: true
+python_3: true
+
+### python pip packages (add your custom packages here)
+pip2_packages: []
+pip3_packages: []
+
+### variables for ansible-role-ubuntu-setup
+ubuntu_user: ""
+ubuntu_releases: ""
+apt_packages:
+  # ---- Base Utils ----
+  - keepassxc
+  - htop
+  - less
+  - lsof
+  - man-db
+  - manpages
+  - make
+  - moreutils
+  - tmux
+  - traceroute
+  - tree
+  - gcc
+  - wget
+  - curl
+  - unzip
+  - zip
+  - p7zip
+  - thunar
+  - sxiv
+  - mupdf
+  - borgbackup
+  - firefox
+  # - chromium
+  - chromium-browser
+  - okular # PDF reader w/ annotations
+  - pcmanfm
+  - bat
+  - cantata # GUI frontend for mpd
+  - dex
+  - vim
+  - ffmpeg
+  - dunst
+  - highlight
+  # - img2pdf
+  - libreoffice
+  - libreoffice-style-sifr
+  - w3m
+  - w3m-img
+  - xarchiver
+  - piper # gui for mouse config
+  # - newsboat # RSS feed reader
+# ---- Personal applications ----
+  - gnucash
+  # - steam-installer
+# ---- Sec Tools (default) ----
+  # - netcat
+  # - nmap
+  # - wireshark
+# ---- Sec Tools (wireless) ----
+  # - aircrack-ng
+# ---- Theming ----
+  - xwallpaper
+  - lxappearance
+  - qt5-style-plugins
+  #- qt4-qtconfic
+# ---- Window Manager ----
+  - arandr
+  - autorandr
+  - blueman #bluetooth GUI
+  - redshift
+  - redshift-gtk
+  - scrot
+# ---- Video ----
+  - mpv
+  - vlc
+  - x264
+  - x265
+# ---- Audio ----
+  #- pavucontrol #GUI for pulseaudio volume control
+  - alsa-utils
+  - pulseaudio
+  - pulseaudio-module-bluetooth
+  - pulseaudio-utils
+# ---- Network clients ----
+  #- jxplorer #ldap browser
+  - openssh-client
+  - remmina # ssh gui client
+# ---- Development ----
+  # - ack
+  # - ack-grep
+  # - postgresql
+  # - texlive-full
+  - qpdf
+  - stow
+  - taskwarrior
+  - pandoc
+  - mariadb-server
+  - binutils
+  - dos2unix
+  - jq
+  - python-is-python3
+  - pylint
+  - python3-pep8
+
+apt_removals: []
+  # - byobu
+ppas: []
+no_ppa_packages: []
+
+default_user: ""
+default_group: ""
+default_files: []
+
+### settings for packages
+
+# --- Chromium ---
+# chromium_package_name: chromium
+# chromium_extensions_dir: /usr/share/chromium/extensions
+# only works for extensions from official web store
+# chromium_extensions_list: #[]
+#   # LastPass
+#   - hdokiejnpimakedhajhdlcegeplioahd
+#   # Vimium
+#   - dbepggeogbaibhgnhhndojpepiihcmeb
+#   # uBlock Origin
+#   - cjpalhdlnbpafiamejdnhcphjbkeiagm
+#   # Stylus
+#   - clngdbkpkpeebahjckkjfobafhncgmne
+#   # Reddit Enhancement Suite
+#   - kbmfpngjjgdllneeigpgjifpgocmfgmb
+#   # Dark Reader
+#   - eimadpbcbfnmbkopoojfekhnkhdbieeh
+#   # uMatirx
+#   - ogfcmafjalglgifnmanfmnieipoejdcf
+#   # Video Speed Controller
+#   - nffaoalbilbmmfgbnbgppjihopabppdk
+
+
+# --- Docker ---
+docker_users: #[]
+  - "{{ ansible_user_id }}"
+  # - vagrant
+docker_apt_release_channel: stable
+docker_install_compose: true
+docker_compose_version: "v2.4.1"
+
+# --- Dotfiles ---
+dotfile_repo: ""
+
+# --- Firefox ---
+firefox_ext_official: []
+
+# --- Fonts ---
+fonts_repository:
+  - fonts-powerline
+  - fonts-liberation
+  - fonts-dejavu-core
+  - fonts-dejavu-extra
+  - fonts-font-awesome
+  - fonts-materialdesignicons-webfont
+nerdfonts_single_fonts: #[]
+  - "UbuntuMono/Regular/complete/Ubuntu Mono Nerd Font Complete.ttf"
+  - "AurulentSansMono/complete/AurulentSansMono-Regular Nerd Font Complete.otf"
+font_droid_sans_mono_urls: []
+
+# --- FZF ---
+# add sourcing ~/.fzf.bash to your normal shell config?
+fzf_update_rc: true
+# enable/Disable fuzzy completion (bash & zsh)?
+fzf_completion: false
+# enable/disable key bindings (CTRL-T, CTRL-R, ALT-C)?
+fzf_key_bindings: false
+# runs fzf configuration script when false, otherwise will use custom config paths for bash and zsh if fzf_bash or fzf_zsh true
+fzf_template: false
+# put fzf bash config in custom path
+fzf_bash: false
+# put fzf zsh config in custom path
+fzf_zsh: false
+
+# --- Git ---
+gitconfig_set: true
+gitignore_set: true
+gitconfig_set_commit_message: true
+
+gitconfig_alias:
+
+gitconfig_color:
+
+gitconfig_core:
+  editor: vim
+
+gitconfig_diff:
+
+gitconfig_user:
+
+gitconfig_commit:
+
+gitconfig_other:
+
+gitignore: []
+
+# --- i3 ---
+i3: false
+i3_gaps_ppa: true
+i3_gaps_manual: false
+i3_ricing: true
+
+i3_ricing_apps:
+  - picom
+  # - compton
+  - dunst
+  - rofi
+
+# --- Jetbrains Development Tools ---
+intellij: true
+intellij_code: IC
+
+pycharm: true
+pycharm_code: PCC
+
+# --- mpd ---
+mpd_sample_config: false
+
+mpc_install: true
+
+ncmpcpp_sample_config: false
+ncmpcpp_install: true
+
+# --- Ranger ---
+ranger_plugins: #[]
+  - repository: https://github.com/alexanderjeurissen/ranger_devicons.git
+    directory: devicons
+
+ranger_python2_packages: []
+ranger_python3_packages: []
+
+# --- rtl88_themes ---
+rtl_themes:
+  - directory: rtl88-arc_darkest_complete
+    version: Arc-Darkest-COLORS-Complete-Desktop
+  - directory: rtl88-nord_black_frost
+    version: Nord-Black-Frost
+  # - directory: rtl88-abyss_desktop_complete
+  #   version: Abyss-Desktop-Theme-Icons-and-Folders
+  # - directory: rtl88-material_black
+  #   version: material-black-COLORS
+  # - directory: rtl88-arc_darkest
+  #   version: Arc-Darkest
+  # - directory: rtl88-arc_blackest
+  #   version: Arc-BLACKEST
+  # - directory: rtl88-arc_black_colors
+  #   version: Arc-Black-COLORS
+  - directory: rtl88-crushed_icons
+    version: CRUSHED-Icons-and-Folders
+  # - directory: rtl88-mbc_complete
+  #   version: MBC-Complete-Desktop
+  # - directory: rtl88-mbc_icons
+  #   version: MBC-Icon-SuperPack
+  # - directory: rtl88-numix_black
+  #   version: Numix-BLACK
+  # - directory: rtl88-plata_dark_arc
+  #   version: Plata-Dark-Arc
+  # - directory: rtl88-solarized_black
+  #   version: Solarized-BLACK
+  # - directory: rtl88-ultimate_plata_dark_complete
+  #   version: Ultimate-Plata-Dark-Complete-Desktop
+
+# --- Thunderbird ---
+thunderbird_ext_official: []
+# List of urls pages in which an XPI download link can be found.
+# Note: The first found XPI download url will be used
+thunderbird_ext_custom: []
+
+# --- urxvt ---
+urxvt_extensions: #[]
+  - https://raw.githubusercontent.com/majutsushi/urxvt-font-size/master/font-size # https://github.com/majutsushi/urxvt-font-size
+
+# --- vim ---
+vim_installed_packages: #[]
+  - vim
+vim_removed_packages:
+  - vim-tiny
+  - vim-nox
+vim_installed_plugins_start: #[]
+  - repo: "https://github.com/scrooloose/nerdtree.git"
+  #   version: "HEAD"
+  - repo: "https://github.com/vim-airline/vim-airline"
+  - repo: "https://github.com/Raimondi/delimitMate.git"
+  - repo: "https://github.com/godlygeek/tabular.git"
+  - repo: "https://github.com/tpope/vim-commentary.git"
+  - repo: "https://github.com/tpope/vim-fugitive.git"
+  - repo: "https://github.com/tpope/vim-repeat.git"
+  - repo: "https://github.com/tpope/vim-surround.git"
+  - repo: "https://github.com/vim-syntastic/syntastic.git"
+  - repo: "https://github.com/Vimjas/vim-python-pep8-indent.git"
+vim_installed_plugins_opt: #[]
+  - repo: "https://github.com/junegunn/goyo.vim.git"
+  - repo: "https://github.com/lervag/vimtex.git"
+vim_removed_plugins_start:
+  []
+vim_removed_plugins_opt:
+  []
+
+# --- Visual Studio Code ---
+vscode_extensions_install: #[]
+  - alefragnani.Bookmarks
+  - alefragnani.project-manager
+  - ban.spellright
+  - bertieblackman.snappier
+  - bierner.color-info
+  - CoenraadS.bracket-pair-colorizer-2
+  - DavidAnson.vscode-markdownlint
+  - dbaeumer.vscode-eslint
+  - donjayamanne.githistory
+  - dsznajder.es7-react-js-snippets
+  - eamodio.gitlens
+  - ecmel.vscode-html-css
+  - eriklynd.json-tools
+  - esbenp.prettier-vscode
+  - formulahendry.auto-close-tag
+  - goessner.mdmath
+  - humao.rest-client
+  - IBM.output-colorizer
+  - idleberg.icon-fonts
+  - James-Yu.latex-workshop
+  - jebbs.plantuml
+  - jprestidge.theme-material-theme
+  - jsaulou.theme-by-language
+  - juliettepretot.lucy-vscode
+  - kisstkondoros.vscode-gutter-preview
+  - marcostazi.VS-code-vagrantfile
+  - mechatroner.rainbow-csv
+  - mikestead.dotenv
+  - mrmlnc.vscode-apache
+  - ms-azuretools.vscode-docker
+  - ms-python.python
+  - ms-toolsai.jupyter
+  - ms-vscode-remote.remote-containers
+  - naumovs.color-highlight
+  - Nimda.deepdark-material
+  - oderwat.indent-rainbow
+  - redhat.vscode-yaml
+  - ritwickdey.live-sass
+  - ritwickdey.LiveServer
+  - rogalmic.bash-debug
+  - samuelcolvin.jinjahtml
+  - Shan.code-settings-sync
+  - shd101wyy.markdown-preview-enhanced
+  - steoates.autoimport
+  - streetsidesoftware.code-spell-checker
+  - teabyii.ayu
+  - vangware.dark-plus-material
+  - vincaslt.highlight-matching-tag
+  - vscode-icons-team.vscode-icons
+  - vscodevim.vim
+  - WakaTime.vscode-wakatime
+  - wayou.vscode-todo-highlight
+  - yzhang.markdown-all-in-one
+  - Zignd.html-css-class-completion
+vscode_extensions_uninstall: []
+
+# --- Youtube-dl ---
+youtubedl_update: true
+
+# --- ZSH ---
+zsh_user: []
+zsh_plugins_git: #[]
+    - name: zsh-syntax-highlighting
+      zsh_file: zsh-syntax-highlighting.zsh
+      repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    - name: zsh-autosuggestions
+      zsh_file: zsh-autosuggestions.zsh
+      repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    - name: powerlevel10k
+      zsh_file: powerlevel10k.zsh-theme
+      repo: https://github.com/romkatv/powerlevel10k.git
+zsh_plugins_package_manager: #[]
+  - powerline
+omz_install: false
+omz_configure: false
+
+# --- Network_manager ---
+network_manager_nm_applet: true
+network_manager_plugin_openvpn: true
+network_manager_plugin_l2tp: true
+network_manager_plugin_openconnect: true
+network_manager_plugin_pptp: true
+network_manager_plugin_ssh: true
+network_manager_plugin_strongswan: true
+network_manager_plugin_vpnc: true
+
+# --- Xorg ---
+### Set your preferred default applications (MIME-Types)
+xdg_mime_defaults:
+  - desktop_file: sxiv.desktop
+    mime_types:
+      - image/jpg
+      - image/jpeg
+      - image/pjpeg
+      - image/png
+      - image/tiff
+      - image/webp
+      - image/bmp
+      - image/gif
+  - desktop_file: mpv.desktop
+    mime_types:
+      - video/x-matroska
+      - video/mp4
+      - video/H264
+      - video/mpeg
+      - video/webm
+      - video/ogg
+      - video/avi
+  - desktop_file: zathura.desktop
+    mime_types:
+      - application/pdf
+      - application/postscript
+      - application/eps
+      - application/x-eps
+  - desktop_file: firefox.desktop
+    mime_types:
+      - text/html
+      - application/xhtml_xml
+      - application/x-mimearchive
+      - x-scheme-handler/http
+      - x-scheme-handler/https
+      - x-scheme-handler/ftp
+      - x-scheme-handler/chrome
+  - desktop_file: vim.desktop
+    mime_types:
+      - text/xml
+      - text/plain
+  - desktop_file: anki.desktop
+    mime_types:
+      - application/x-colpkg
+      - application/x-apkg
+      - application/x-ankiaddon
+  - desktop_file: thunderbird.desktop
+    mime_types:
+      - x-scheme-handler/mailto
+      - application/x-xpinstall
+  - desktop_file: pcmanfm.desktop
+    mime_types:
+      - inode/directory
+  - desktop_file: ncmpcpp.desktop
+    mime_types:
+      - audio/mpeg
+      - audio/ogg
+      - audio/opus
+      - audio/webm
+      - audio/wav
+      - audio/mpeg3

@@ -1,0 +1,111 @@
+- name: anki
+  src: https://github.com/skaary/ansible-role-anki.git
+  scm: git
+
+- name: discord
+  src: https://github.com/skaary/ansible-role-discord.git
+  scm: git
+
+- name: docker
+  src: https://github.com/skaary/ansible-role-docker.git
+  scm: git
+
+- name: dotfiles
+  src: https://github.com/skaary/ansible-role-dotfiles.git
+  scm: git
+
+- name: fonts
+  src: https://github.com/skaary/ansible-role-fonts.git
+  scm: git
+
+- name: fzf
+  src: https://github.com/skaary/ansible-role-fzf.git
+  scm: git
+
+- name: gimp
+  src: https://github.com/skaary/ansible-role-gimp.git
+  scm: git
+
+- name: git
+  src: https://github.com/skaary/ansible-role-git.git
+  scm: git
+
+- name: i3
+  src: https://github.com/skaary/ansible-role-i3.git
+  scm: git
+
+- name: jetbrains_dev_tools
+  src: https://github.com/skaary/ansible-role-jetbrains-dev-tools.git
+  scm: git
+
+# - name: kitty
+#   src: https://github.com/skaary/ansible-role-kitty.git
+#   scm: git
+
+- name: mpd
+  src: https://github.com/skaary/ansible-role-mpd.git
+  scm: git
+
+- name: network_manager
+  src: https://github.com/skaary/ansible-role-network-manager.git
+  scm: git
+
+- name: packer
+  src: https://github.com/skaary/ansible-role-packer.git
+  scm: git
+
+- name: polybar
+  src: https://github.com/skaary/ansible-role-polybar.git
+  scm: git
+
+- name: qemu
+  src: https://github.com/skaary/ansible-role-qemu.git
+  scm: git
+
+- name: ranger
+  src: https://github.com/skaary/ansible-role-ranger.git
+  scm: git
+
+- name: rtl88_themes
+  src: https://github.com/skaary/ansible-role-rtl88_themes.git
+  scm: git
+
+- name: syncthing
+  src: https://github.com/skaary/ansible-role-syncthing.git
+  scm: git
+
+- name: urxvt
+  src: https://github.com/skaary/ansible-role-urxvt.git
+  scm: git
+
+- name: vagrant
+  src: https://github.com/skaary/ansible-role-vagrant.git
+  scm: git
+
+- name: vim
+  src: https://github.com/skaary/ansible-role-vim.git
+  scm: git
+
+- name: virtualbox
+  src: https://github.com/skaary/ansible-role-virtualbox.git
+  scm: git
+
+- name: vscode
+  src: https://github.com/skaary/ansible-role-vscode.git
+  scm: git
+
+- name: xdg_mime_meta
+  src: https://github.com/skaary/ansible-role-xdg-mime-meta.git
+  scm: git
+
+- name: ytdlp
+  src: https://github.com/skaary/ansible-role-ytdlp.git
+  scm: git
+
+- name: zathura
+  src: https://github.com/skaary/ansible-role-zathura.git
+  scm: git
+
+- name: zsh
+  src: https://github.com/skaary/ansible-role-zsh.git
+  scm: git

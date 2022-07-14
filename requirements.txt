@@ -1,0 +1,7 @@
+wheel
+setuptools
+ansible
+ansible-lint
+docker
+yamllint
+molecule[docker]

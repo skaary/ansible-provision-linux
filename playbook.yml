@@ -1,0 +1,30 @@
+---
+- hosts: all
+  roles:
+    - role: anki
+    - role: discord
+    - role: docker
+    # - role: dotfiles
+    - role: fonts
+    - role: fzf
+    - role: gimp
+    - role: git
+    - role: i3
+    - role: jetbrains_dev_tools
+    - role: mpd
+    - role: network_manager
+    - role: packer
+    - role: polybar
+    - role: qemu
+    - role: ranger
+    - role: rtl88_themes
+    - role: syncthing
+    - role: urxvt
+    - role: vagrant
+    - role: vim
+    - role: virtualbox
+    - role: vscode
+    - role: xdg_mime_meta
+    - role: ytdlp
+    - role: zathura
+    # - role: zsh
