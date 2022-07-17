@@ -1,64 +1,84 @@
 # Ansible Ubuntu
 
-**[Quick Start](#quick-start)** | **[Features](#features)** | **[Installation](#installation)** | **[Custom profiles](#create-custom-profiles)** | **[Test your profile](#test-your-profile)**  | **[Options](#options)** | **[Requirements](#requirements)** | **[License](#license)**
+**[Quick Start](#quick-start)** | **[Features](#features)** | **[Custom profiles](#create-custom-profiles)** | **[Test your profile](#test-your-profile)**  | **[Options](#options)** | **[Requirements](#requirements)** | **[License](#license)**
 
-Customizable Ansible setup to provision your workstation with Linux Mint or Ubuntu. 
+[![CI](https://github.com/skaary/ansible-provision-linux/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/skaary/ansible-provision-linux/actions?query=workflow%3Ci)
+
+Customizable Ansible setup to provision your workstation with Linux Mint or Ubuntu.
 
 #### Table of Contents
 
-1. **[TL;DR](#tldr)**
+1. **[Quick Start](#quick-start)**
 2. **[Roles included](#roles-included)**
-3. **[Installation](#installation)**
-4. **[Create custom profiles](#create-custom-profiles)**
+3. **[Create custom profiles](#create-custom-profiles)**
     1. [Assumption](#assumption)
     2. [Add a new profile](#add-a-new-profile)
     3. [Add a profile configuration](#add-a-profile-configuration)
     4. [Customize your profile](#customize-your-profile)
     5. [Provision your profile](#provision-your-profile)
-5. **[Test your profile](#test-your-profile)**
-    1. [Vagrant](#vagrant)
-6. **[Options](#options)**
+4. **[Test your profile](#test-your-profile)**
+    1. [Docker](#docker)
+    2. [Vagrant](#vagrant)
+5. **[Options](#options)**
+    1. [Enable role](#enable-role)
     2. [Package options](#package-options)
-7. **[Requirements](#requirements)**
+6. **[Requirements](#requirements)**
     1. [Install system requirements](#install-system-requirements)
     2. [Sudo permissions](#sudo-permissions)
-8. **[License](#license)**
+7. **[License](#license)**
 
 ## Quick Start
 
-Make sure your system meets the **[requirements](#requirements)** before you start.
+Make sure your system meets the **[requirements](#requirements)** before you start. Everything python related (e.g. Ansible) will be installed into a virtual python environment.
+<!-- If this is not desired, .... -->
 
-#### Fully provision your system from scratch
+### Fully provision your system from scratch
 
 Use this to provision your system from scratch, when you have already submitted your profile upstream.
 The only requirements are `bash` and `sudo`, everything else will be installed automatically.
 
 ```bash
 # Provision default profile
-curl https://raw.githubusercontent.com/skaary/ansible-linux/master/bootstrap.sh | bash
+curl https://raw.githubusercontent.com/skaary/ansible-provision-linux/master/bootstrap.sh | bash
 
 # Provision profile 'generic-all'
-curl https://raw.githubusercontent.com/skaary/ansible-linux/master/bootstrap.sh | bash -s generic-all
+curl https://raw.githubusercontent.com/skaary/ansible-provision-linux/master/bootstrap.sh | bash -s generic-all
 ```
 
-#### Manually provision your system from scratch
+### Manually provision your system from scratch
 
 Use this to provision your system from scratch, when you don't have a profile submitted to upstream yet.
 
 ```bash
 # 1. Clone this project
-git clone https://github.com/skaary/ansible-linux
+git clone https://github.com/skaary/ansible-provision-linux
 cd ansible-debian
 
-# 2. Add your profile 'bob' (See 'Create custom profiles' section of this README)
+# 2. Add your profile 'skaary' (See 'Create custom profiles' section of this README)
 
-# 3. Provision your system (with profile 'bob')
+# 3. Provision your system (with profile 'skaary')
 # Note when to use sudo and when not
 sudo make deploy-init
-make deploy-apt-sources PROFILE=bob
-sudo make deploy-dist-upgrade
-make deploy-tools PROFILE=bob
+make deploy-virtualenv
+make deploy-import-roles
+make deploy-tools PROFILE=skaary
 ```
+
+<!-- #### Manually provision your system from scratch without python virtual environment
+
+Use this to provision your system from scratch, when you don't have a profile submitted to upstream yet **and** you do not want to install everything in a virtual python environment. A working install of Ansible is assumed.
+
+```bash
+# 1. Clone this project
+git clone https://github.com/skaary/ansible-provision-linux
+cd ansible-debian
+```
+
+```bash
+ansible-galaxy install -r roles/requirements.yml -p ./roles
+ansible-playbook -i inventory playbook.yml --limit \$profile --diff --ask-become-pass $(ARG)
+.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --ask-become-pass $(ARG) -t $(ROLE)
+``` -->
 
 #### Dry-run the tools installation
 
@@ -66,14 +86,16 @@ make deploy-tools PROFILE=bob
 # Dry-run everything for profile 'generic-all'
 make diff-tools PROFILE=generic-all
 
-# Dry-run everything for profile 'generic-all' without role 'systemd'
-make diff-tools PROFILE=generic-all IGNORE=systemd
+# Dry-run everything for profile 'generic-all' without role 'i3'
+make diff-tools PROFILE=generic-all IGNORE=i3
 
 # Dry-run a specific role 'i3-gaps' 
-make diff-tools PROFILE=generic-all ROLE=i3-gaps
+make diff-tools PROFILE=generic-all ROLE=i3
 ```
 
 ## Roles included
+
+By default, the following roles will be downloaded into the `role/` directory:
 
 | Role Repository                                                                   | Description                                                                                                                                               |
 | :-------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -103,19 +125,11 @@ make diff-tools PROFILE=generic-all ROLE=i3-gaps
 | [XDG Mime](https://github.com/skaary/ansible-role-xdg-mime-meta)                  | An ansible roles that sets xdg-mime-meta preferences (see [XDG_MIME Applications](https://wiki.archlinux.org/title/XDG_MIME_Applications)).               |
 | [yt-dlp](https://github.com/skaary/ansible-role-ytdlp)                            | Installs [yt-dlp](https://github.com/yt-dlp/yt-dlp) to download videos from youtube.com or other video platforms.                                         |
 | [Zathura](https://github.com/skaary/ansible-role-zathura)                         | Installs the document viewer [Zathura](https://pwmt.org/projects/zathura/).                                                                               |
-| [zsh](https://github.com/skaary/ansible-role-zsh)                                 | Installs the shell emulator [zsh](https://www.zsh.org/) with plugins and optionally the [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) framework.        |
+| [zsh](https://github.com/skaary/ansible-role-zsh)                                 | Installs the unix shell [zsh](https://www.zsh.org/) with plugins and optionally the [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) framework.        |
 
-<!-- ADDING NEW ROLES -->
-<!-- ROLES CAN ALSO BE MANUALLY ADDED TO THE ROLES DIRECTORY -->
+Adding new roles can be done by either appending new roles to the `roles/requirements.yml` file or by manually downloading them into the `role/` directory.
 
-## Installation
-
-```bash
-sudo apt install python3-venv
-python3 -m venv .venv
-source ./.venv/bin/activate
-python -m pip install -r requirements.txt
-```
+> Note: Ansible role names need to be seperated by an underscore instead of dashes. For instance, Ansible only accepts `mysql_aws` and not `mysql-aws`.
 
 ## Create custom profiles
 
@@ -131,14 +145,14 @@ To better understand how it works, you can follow this step-by-step example for 
 
 ### Assumption
 
-For the sake of this example, let's assume your profile is called `desktop_mint`.
+For the sake of this example, let's assume your profile is called `skaary`.
 
 #### Add a new profile
 
 Add the following line to the bottom of [inventory](inventory):
 
 ```bash
-desktop_mint ansible_connection=local
+skaary ansible_connection=local
 ```
 
 `ansible_connection=local` defines that your profile should be applied to your local computer. If you want to create a profile for a remote computer, your profile name must be a hostname or IP address by which the remote machine is reachable over the network.
@@ -150,18 +164,18 @@ As already mentioned earlier, you can copy [group_vars/all.yml](group_vars/all.y
 Use group_vars/all.yml as a default template:
 
 ```bash
-cp group_vars/all.yml host_vars/desktop_mint.yml
+cp group_vars/all.yml host_vars/skaary.yml
 ```
 
 Use an already existing host_vars file as a default template:
 
 ```bash
-cp host_vars/generic-all.yml host_vars/desktop_mint.yml
+cp host_vars/generic-all.yml host_vars/skaary.yml
 ```
 
 #### Customize your profile
 
-Simply edit `host_vars/desktop_mint.yml` and adjust the values to your needs. If you have copied an already existing file, it will contain comments for all possible configuration options that let's you quickly see what and how to change.
+Simply edit `host_vars/skaary.yml` and adjust the values to your needs. If you have copied an already existing file, it will contain comments for all possible configuration options that lets you quickly see what and how to change.
 
 #### Provision your profile
 
@@ -170,18 +184,48 @@ If you want to test your profile in a Docker container prior actually provisioni
 Run the following command to see what would happen:
 
 ```bash
-ansible-playbook -i inventory playbook.yml --diff --limit desktop_mint --ask-become-pass --check
+ansible-playbook -i inventory playbook.yml --diff --limit skaary --ask-become-pass --check
 ```
 
 Run the following command to actually apply your profile:
 
 ```bash
-ansible-playbook -i inventory playbook.yml --diff --limit desktop_mint --ask-become-pass
+ansible-playbook -i inventory playbook.yml --diff --limit skaary --ask-become-pass
 ```
 
 ## Test your profile
 
-Before actually running any new profile / provisioning any system it is advised to first run tests to see if everything works as expected; this can be done in a **Vagrant box** (see [installation](https://www.vagrantup.com/downloads) if vagrant is not already installed on the system).
+Before actually running any new profile / provisioning any system it is advised to first run tests to see if everything works as expected; this can be done in a **Docker container** or in a **Vagrant box**.
+
+### Docker
+
+> **Note:** The Docker image will always be auto-build before running the tests.
+
+Before running you should be aware of a few arguments that can be applied to the `make` commands. See the table below:
+
+| Variable  | Required | Description                                           |
+| --------- | -------- | ----------------------------------------------------- |
+| `PROFILE` | yes      | The inventory hostname (your profile)                 |
+| `VERBOSE` | no       | Ansible verbosity. Valid values: `0`, `1`, `2` or `3` |
+| `ROLE`    | no       | Only run this specific tag (role name)                |
+
+Run a full test of profile `generic-all`:
+
+```bash
+make test-docker-full PROFILE=generic-all
+```
+
+Run a full test of profile `generic-all` in a random order:
+
+```bash
+make test-docker-random PROFILE=generic-all
+```
+
+Only run `i3` role in profile `generic-all`
+
+```bash
+make test-docker-single PROFILE=generic-all ROLE=i3
+```
 
 ### Vagrant
 
@@ -191,7 +235,26 @@ Run the following in your terminal:
 make test-vagrant PROFILE=desktop_mint
 ```
 
+Change `PROFILE` accordingly.
+
 ## Options
+
+### Enable role
+
+Look for the package section and set them to `install` if an execution of the role is desired; any other value will ignore the role.
+
+```bash
+$ vi host_vars/<name>.yml
+```
+
+```yml
+---
+i3:         'install' # role will be executed
+docker:     'install'
+anki:       'install'
+docker:     ''        # role will be ignored and not executed
+discord:    'ignore'  # role will be ignored and not executed
+```
 
 ### Package Options
 
@@ -218,14 +281,15 @@ For a more exhaustive overview of available options head to the [respective role
 
 ## Requirements
 
-Before you can start there are a few tools required that must be present on the system. Just copy-paste those commands as root into your terminal.
+Before you can start there are a few tools required that must be present on the system. Just copy-paste those commands into your terminal.
 
 ### Install system requirements
 
 ```bash
-apt-get update
-apt-get install --no-install-recommends --no-install-suggests -y \
+sudo apt-get update
+sudo apt-get install --no-install-recommends --no-install-suggests -y \
   make \
+  git \
   sudo
 ```
 

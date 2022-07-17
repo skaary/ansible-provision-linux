@@ -50,6 +50,10 @@
   src: https://github.com/skaary/ansible-role-network-manager.git
   scm: git
 
+- name: ubuntu_setup
+  src: https://github.com/skaary/ansible-role-ubuntu-setup.git
+  scm: git
+
 - name: packer
   src: https://github.com/skaary/ansible-role-packer.git
   scm: git
@@ -106,6 +110,6 @@
   src: https://github.com/skaary/ansible-role-zathura.git
   scm: git
 
-- name: zsh
-  src: https://github.com/skaary/ansible-role-zsh.git
-  scm: git
+# - name: zsh
+#   src: https://github.com/skaary/ansible-role-zsh.git
+#   scm: git

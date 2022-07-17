@@ -2,29 +2,58 @@
 - hosts: all
   roles:
     - role: anki
+      tags: anki
     - role: discord
+      tags: discord
     - role: docker
-    # - role: dotfiles
+      tags: docker
+    - role: dotfiles
+      tags: dotfiles
     - role: fonts
+      tags: fonts
     - role: fzf
+      tags: fzf
     - role: gimp
+      tags: gimp
     - role: git
+      tags: git
     - role: i3
+      tags: i3
     - role: jetbrains_dev_tools
+      tags: jetbrains
     - role: mpd
+      tags: mpd
     - role: network_manager
+      tags: network_manager
+    - role: ubuntu_setup
+      tags: ubuntu_setup
     - role: packer
-    - role: polybar
+      tags: packer
+    # - role: polybar
+    #   tags: polybar
     - role: qemu
+      tags: qemu
     - role: ranger
+      tags: ranger
     - role: rtl88_themes
+      tags: rtl88_themes
     - role: syncthing
+      tags: syncthing
     - role: urxvt
+      tags: urxvt
     - role: vagrant
+      tags: vagrant
     - role: vim
+      tags: vim
     - role: virtualbox
+      tags: virtualbox
     - role: vscode
+      tags: vscode
     - role: xdg_mime_meta
+      tags: xdg
     - role: ytdlp
+      tags: ytdlp
     - role: zathura
+      tags: zathura
     # - role: zsh
+    #   tags: zsh

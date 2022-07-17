@@ -77,7 +77,7 @@ test-docker-single: build-docker
 	docker run --rm -e MY_HOST=$(PROFILE) -e verbose=$(VERBOSE) -e tag=$(ROLE) -t $(IMAGE)
 
 # # Interactive tests
-# # Inside the container execute the following command: ./run-tests.sh
+# # Inside the container execute the following command: ./docker-tests.sh
 itest-docker-full: build-docker
 	docker run -it --rm --entrypoint=bash -e MY_HOST=$(PROFILE) -e verbose=$(VERBOSE) -t $(IMAGE)
 
@@ -116,12 +116,12 @@ deploy-virtualenv:
 ifeq ($(USER),root)
 	$(error Target 'deploy-virtualenv' must be run as normal user without sudo)
 endif
+# ifeq ($(VIRTUAL_ENV),"TRUE")
 	python3 -m venv .venv
-#	. ./.venv/bin/activate 
-#	python3 -m pip install -r requirements.txt
+# endif
 	.venv/bin/pip install -r requirements.txt 
 
-# (Step 3/4) Install roles from the requiremetns file (imports roles from github or ansible galaxy)
+# (Step 3/4) Install roles from the requirements file (imports roles from github or ansible galaxy)
 deploy-import-roles:
 ifeq ($(USER),root)
 	$(error Target 'deploy-import-roles' must be run as normal user without sudo)
@@ -134,9 +134,17 @@ ifeq ($(USER),root)
 	$(error Target 'deploy-tools' must be run as normal user without sudo)
 endif
 ifndef ROLE
+ifndef IGNORE
 	.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --ask-become-pass $(ARG)
 else
+	.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --ask-become-pass $(ARG) --skip-tags=$(IGNORE)
+endif
+else
+ifndef IGNORE
 	.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --ask-become-pass $(ARG) -t $(ROLE)
+else
+	.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --ask-become-pass $(ARG) -t $(ROLE) --skip-tags=$(IGNORE)
+endif
 endif
 
 # Checkmode to test against currently installed tools
@@ -145,7 +153,14 @@ ifeq ($(USER),root)
 	$(error Target 'diff-tools' must be run as normal user without sudo)
 endif
 ifndef ROLE
+ifndef IGNORE
 	.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --check --ask-become-pass $(ARG)
 else
+	.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --check --ask-become-pass $(ARG) --skip-tags=$(IGNORE)
+endif
+ifndef IGNORE
 	.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --check --ask-become-pass $(ARG) -t $(ROLE)
+else
+	.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --check --ask-become-pass $(ARG) -t $(ROLE) --skip-tags=$(IGNORE)
+endif
 endif

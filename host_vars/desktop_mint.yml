@@ -77,7 +77,7 @@ apt_packages:
   - borgbackup
   - firefox
   # - chromium
-  - chromium-browser
+  # - chromium-browser
   - okular # PDF reader w/ annotations
   - pcmanfm
   - bat
@@ -85,13 +85,12 @@ apt_packages:
   - dex
   - vim
   - ffmpeg
-  - dunst
   - highlight
   # - img2pdf
   - libreoffice
   - libreoffice-style-sifr
-  - w3m
-  - w3m-img
+  # - w3m
+  # - w3m-img
   - xarchiver
   - piper # gui for mouse config
   # - newsboat # RSS feed reader
@@ -185,7 +184,6 @@ default_files: []
 # --- Docker ---
 docker_users: #[]
   - "{{ ansible_user_id }}"
-  # - vagrant
 docker_apt_release_channel: stable
 docker_install_compose: true
 docker_compose_version: "v2.4.1"
@@ -211,7 +209,7 @@ font_droid_sans_mono_urls: []
 
 # --- FZF ---
 # add sourcing ~/.fzf.bash to your normal shell config?
-fzf_update_rc: true
+fzf_update_rc: false
 # enable/Disable fuzzy completion (bash & zsh)?
 fzf_completion: false
 # enable/disable key bindings (CTRL-T, CTRL-R, ALT-C)?
@@ -253,15 +251,14 @@ i3_ricing: true
 
 i3_ricing_apps:
   - picom
-  # - compton
   - dunst
   - rofi
 
 # --- Jetbrains Development Tools ---
-intellij: true
+intellij: false
 intellij_code: IC
 
-pycharm: true
+pycharm: false
 pycharm_code: PCC
 
 # --- mpd ---
@@ -372,7 +369,6 @@ vscode_extensions_install: #[]
   - jebbs.plantuml
   - jprestidge.theme-material-theme
   - jsaulou.theme-by-language
-  - juliettepretot.lucy-vscode
   - kisstkondoros.vscode-gutter-preview
   - marcostazi.VS-code-vagrantfile
   - mechatroner.rainbow-csv
@@ -428,11 +424,11 @@ omz_configure: false
 # --- Network_manager ---
 network_manager_nm_applet: true
 network_manager_plugin_openvpn: true
-network_manager_plugin_l2tp: true
-network_manager_plugin_openconnect: true
-network_manager_plugin_pptp: true
+network_manager_plugin_l2tp: false
+network_manager_plugin_openconnect: false
+network_manager_plugin_pptp: false
 network_manager_plugin_ssh: true
-network_manager_plugin_strongswan: true
+network_manager_plugin_strongswan: false
 network_manager_plugin_vpnc: true
 
 # --- Xorg ---
