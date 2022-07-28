@@ -1,0 +1,258 @@
+## select roles to install
+anki_install: false
+discord_install: false
+docker_install: false
+dotfiles_install: false
+fonts_install: false
+fzf_install: false
+gimp_install: false
+git_install: false
+i3_install: false
+jetbrains_install: false
+mpd_install: false
+network_manager_install: false
+ubuntu_setup_install: false
+packer_install: false
+polybar_install: false
+qemu_install: false
+ranger_install: false
+rtl88_install: false
+syncthing_install: false
+urxvt_install: false
+vagrant_install: false
+vim_install: false
+virtualbox_install: false
+vscode_install: false
+xdg_install: false
+ytdlp_install: false
+zathura_install: false
+zotero_install: false
+zsh_install: false
+
+# --- Ubuntu setup ---
+ubuntu_user: ""
+ubuntu_releases: ""
+apt_packages:
+  # ---- Base Utils ----
+  - htop
+  - less
+  - lsof
+  - man-db
+  - manpages
+  - make
+  - moreutils
+  - tmux
+  - traceroute
+  - tree
+  - gcc
+  - wget
+  - curl
+  - unzip
+  - zip
+  - p7zip
+  - thunar
+  - sxiv
+  - mupdf
+  - borgbackup
+  - thunderbird
+  - firefox
+  - vim
+  - ffmpeg
+  - libreoffice
+  - xarchiver
+  - redshift
+  - redshift-gtk
+# ---- Video ----
+  - mpv
+  - vlc
+  - x264
+  - x265
+# ---- Audio ----
+  #- pavucontrol #GUI for pulseaudio volume control
+  - alsa-utils
+  - pulseaudio
+  - pulseaudio-module-bluetooth
+  - pulseaudio-utils
+# ---- Network clients ----
+  - openssh-client
+
+apt_removals: []
+ppas: []
+no_ppa_packages: []
+default_user: ""
+default_group: ""
+default_files: []
+
+# --- Docker ---
+docker_users: #[]
+  - "{{ ansible_user_id }}"
+docker_apt_release_channel: stable
+docker_install_compose: true
+docker_compose_version: "v2.4.1"
+
+# --- Dotfiles ---
+dotfile_repo: ""
+
+# --- Fonts ---
+fonts_user: "{{ ansible_user_id }}"
+fonts_repository:
+  - fonts-dejavu-core
+  - fonts-dejavu-extra
+nerdfonts_single_fonts: []
+  # - "UbuntuMono/Regular/complete/Ubuntu Mono Nerd Font Complete.ttf"
+
+# --- FZF ---
+# add sourcing ~/.fzf.bash to your normal shell config?
+fzf_update_rc: false
+# enable/Disable fuzzy completion (bash & zsh)?
+fzf_completion: false
+# enable/disable key bindings (CTRL-T, CTRL-R, ALT-C)?
+fzf_key_bindings: false
+# runs fzf configuration script when false, otherwise will use custom config paths for bash and zsh if fzf_bash or fzf_zsh true
+fzf_template: false
+# put fzf bash config in custom path
+fzf_bash: false
+# put fzf zsh config in custom path
+fzf_zsh: false
+
+# --- Git ---
+git_user: "{{ ansible_user_id }}"  # or 'system'
+
+gitconfig_set: true
+gitignore_set: true
+gitconfig_set_commit_message: true
+
+gitconfig_alias:
+
+gitconfig_color:
+
+gitconfig_core:
+  editor: vim
+
+gitconfig_diff:
+
+gitconfig_user:
+
+gitconfig_commit:
+
+gitconfig_other:
+
+gitignore: []
+
+# --- i3 ---
+i3: false # install i3 from default repository
+i3_gaps_ppa: false # add regolith ppa to install i3-gaps
+i3_gaps_manual: false # install i3-gaps by building it from source
+i3_extras: false # install i3 extra packages defined in i3_extras_packages variable
+
+i3_extras_packages: []
+
+# --- Jetbrains Development Tools ---
+intellij: false # boolean for installing intellij
+intellij_code: IC 
+
+pycharm: false # boolean for installing pycharm
+pycharm_code: PCC
+
+# --- mpd ---
+mpd_sample_config: false # use mpd sample config
+
+mpc_install: false # boolean for installing mpc
+
+ncmpcpp_sample_config: false  # use ncmpcpp sample config
+ncmpcpp_install: false # boolean for installing ncmpcpp
+
+# --- Network_manager ---
+network_manager_nm_applet: true
+network_manager_plugin_openvpn: true
+network_manager_plugin_l2tp: false
+network_manager_plugin_openconnect: false
+network_manager_plugin_pptp: false
+network_manager_plugin_ssh: true
+network_manager_plugin_strongswan: false
+network_manager_plugin_vpnc: true
+
+# --- Ranger ---
+ranger_plugins: []
+  # - repository: https://github.com/alexanderjeurissen/ranger_devicons.git
+  #   directory: devicons
+
+ranger_python2_packages: []
+ranger_python3_packages: []
+
+# --- rtl88_themes ---
+rtl_themes:
+  - directory: rtl88-arc_darkest_complete
+    version: Arc-Darkest-COLORS-Complete-Desktop
+
+# --- urxvt ---
+urxvt_extensions: []
+  # - https://raw.githubusercontent.com/majutsushi/urxvt-font-size/master/font-size # https://github.com/majutsushi/urxvt-font-size
+
+# --- vim ---
+vim_installed_packages: #[]
+  - vim
+vim_removed_packages:
+  - vim-tiny
+  - vim-nox
+vim_installed_plugins_start: #[]
+  - repo: "https://github.com/vim-airline/vim-airline"
+  - repo: "https://github.com/Raimondi/delimitMate.git"
+  - repo: "https://github.com/godlygeek/tabular.git"
+  - repo: "https://github.com/tpope/vim-commentary.git"
+  - repo: "https://github.com/tpope/vim-fugitive.git"
+  - repo: "https://github.com/tpope/vim-repeat.git"
+  - repo: "https://github.com/tpope/vim-surround.git"
+  - repo: "https://github.com/vim-syntastic/syntastic.git"
+  - repo: "https://github.com/Vimjas/vim-python-pep8-indent.git"
+  - repo: "https://github.com/junegunn/goyo.vim.git"
+  - repo: "https://github.com/lervag/vimtex.git"
+vim_installed_plugins_opt: []
+vim_removed_plugins_start:
+  []
+vim_removed_plugins_opt:
+  []
+
+# --- Visual Studio Code ---
+vscode_extensions_install: []
+vscode_extensions_uninstall: []
+
+# --- Xorg ---
+### Set your preferred default applications (MIME-Types)
+xdg_mime_defaults:
+  - desktop_file: mpv.desktop
+    mime_types:
+      - video/x-matroska
+      - video/mp4
+      - video/H264
+      - video/mpeg
+      - video/webm
+      - video/ogg
+      - video/avi
+  - desktop_file: firefox.desktop
+    mime_types:
+      - text/html
+      - application/xhtml_xml
+      - application/x-mimearchive
+      - x-scheme-handler/http
+      - x-scheme-handler/https
+      - x-scheme-handler/ftp
+      - x-scheme-handler/chrome
+  - desktop_file: vim.desktop
+    mime_types:
+      - text/xml
+      - text/plain
+  - desktop_file: thunderbird.desktop
+    mime_types:
+      - x-scheme-handler/mailto
+      - application/x-xpinstall
+
+# --- yt-dlp ---
+ytdlp_update: true
+
+# --- ZSH ---
+zsh_user: []
+zsh_plugins_git: []
+zsh_plugins_package_manager: []
+omz_install: false
+omz_configure: false

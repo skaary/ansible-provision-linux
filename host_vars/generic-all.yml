@@ -13,7 +13,7 @@ mpd_install: true
 network_manager_install: true
 ubuntu_setup_install: true
 packer_install: true
-polybar_install: false
+polybar_install: true
 qemu_install: true
 ranger_install: true
 rtl88_install: true
@@ -35,30 +35,12 @@ ubuntu_releases: ""
 apt_packages:
   # ---- Base Utils ----
   - keepassxc
-  - htop
-  - less
-  - lsof
-  - man-db
-  - manpages
-  - make
-  - moreutils
-  - tmux
-  - traceroute
-  - tree
-  - gcc
-  - wget
-  - curl
-  - unzip
-  - zip
-  - p7zip
   - thunar
   - sxiv
   - mupdf
   - borgbackup
   - firefox
   - thunderbird
-  # - chromium
-  # - chromium-browser
   - okular # PDF reader w/ annotations
   - pcmanfm
   - bat
@@ -67,24 +49,10 @@ apt_packages:
   - vim
   - ffmpeg
   - highlight
-  # - img2pdf
   - libreoffice
   - libreoffice-style-sifr
-  # - w3m
-  # - w3m-img
   - xarchiver
   - piper # gui for mouse config
-  # - newsboat # RSS feed reader
-# ---- Personal applications ----
-  - gnucash
-  # - steam-installer
-# ---- Sec Tools (default) ----
-  # - netcat
-  # - nmap
-  # - wireshark
-# ---- Sec Tools (wireless) ----
-  # - aircrack-ng
-# ---- Theming ----
   - xwallpaper
   - lxappearance
   - qt5-style-plugins
@@ -95,7 +63,6 @@ apt_packages:
   - blueman #bluetooth GUI
   - redshift
   - redshift-gtk
-  - scrot
 # ---- Video ----
   - mpv
   - vlc
@@ -108,56 +75,22 @@ apt_packages:
   - pulseaudio-module-bluetooth
   - pulseaudio-utils
 # ---- Network clients ----
-  #- jxplorer #ldap browser
   - openssh-client
-  - remmina # ssh gui client
 # ---- Development ----
-  # - ack
-  # - ack-grep
-  # - postgresql
   # - texlive-full
   - qpdf
-  - stow
-  - taskwarrior
   - pandoc
   - mariadb-server
   - binutils
   - dos2unix
   - jq
-  - python-is-python3
-  - pylint
-  - python3-pep8
 
 apt_removals: []
-  # - byobu
 ppas: []
 no_ppa_packages: []
 default_user: ""
 default_group: ""
 default_files: []
-
-# --- Chromium ---
-# chromium_package_name: chromium
-# chromium_extensions_dir: /usr/share/chromium/extensions
-# only works for extensions from official web store
-# chromium_extensions_list: #[]
-#   # LastPass
-#   - hdokiejnpimakedhajhdlcegeplioahd
-#   # Vimium
-#   - dbepggeogbaibhgnhhndojpepiihcmeb
-#   # uBlock Origin
-#   - cjpalhdlnbpafiamejdnhcphjbkeiagm
-#   # Stylus
-#   - clngdbkpkpeebahjckkjfobafhncgmne
-#   # Reddit Enhancement Suite
-#   - kbmfpngjjgdllneeigpgjifpgocmfgmb
-#   # Dark Reader
-#   - eimadpbcbfnmbkopoojfekhnkhdbieeh
-#   # uMatirx
-#   - ogfcmafjalglgifnmanfmnieipoejdcf
-#   # Video Speed Controller
-#   - nffaoalbilbmmfgbnbgppjihopabppdk
-
 
 # --- Docker ---
 docker_users: #[]
@@ -169,30 +102,19 @@ docker_compose_version: "v2.4.1"
 # --- Dotfiles ---
 dotfile_repo: ""
 
-# --- Firefox ---
-# firefox_ext_official: []
-
 # --- Fonts ---
 fonts_user: "{{ ansible_user_id }}"
-fonts_repository:
-  - fonts-powerline
-  - fonts-liberation
-  - fonts-dejavu-core
-  - fonts-dejavu-extra
-  - fonts-font-awesome
-  - fonts-materialdesignicons-webfont
-nerdfonts_single_fonts: #[]
-  - "UbuntuMono/Regular/complete/Ubuntu Mono Nerd Font Complete.ttf"
-  - "AurulentSansMono/complete/AurulentSansMono-Regular Nerd Font Complete.otf"
+fonts_repository: []
+nerdfonts_single_fonts: []
 
 # --- FZF ---
 # add sourcing ~/.fzf.bash to your normal shell config?
-fzf_update_rc: false
+fzf_update_rc: true
 # enable/Disable fuzzy completion (bash & zsh)?
-fzf_completion: false
+fzf_completion: true
 # enable/disable key bindings (CTRL-T, CTRL-R, ALT-C)?
 fzf_key_bindings: false
-# runs fzf configuration script when false, otherwise will use custom config paths for bash and zsh if fzf_bash or fzf_zsh true
+# runs fzf configuration script when set to false, otherwise will use custom config paths for bash and zsh if fzf_bash or fzf_zsh true
 fzf_template: false
 # put fzf bash config in custom path
 fzf_bash: false
@@ -271,38 +193,6 @@ ranger_python3_packages: []
 rtl_themes:
   - directory: rtl88-arc_darkest_complete
     version: Arc-Darkest-COLORS-Complete-Desktop
-  - directory: rtl88-nord_black_frost
-    version: Nord-Black-Frost
-  # - directory: rtl88-abyss_desktop_complete
-  #   version: Abyss-Desktop-Theme-Icons-and-Folders
-  # - directory: rtl88-material_black
-  #   version: material-black-COLORS
-  # - directory: rtl88-arc_darkest
-  #   version: Arc-Darkest
-  # - directory: rtl88-arc_blackest
-  #   version: Arc-BLACKEST
-  # - directory: rtl88-arc_black_colors
-  #   version: Arc-Black-COLORS
-  - directory: rtl88-crushed_icons
-    version: CRUSHED-Icons-and-Folders
-  # - directory: rtl88-mbc_complete
-  #   version: MBC-Complete-Desktop
-  # - directory: rtl88-mbc_icons
-  #   version: MBC-Icon-SuperPack
-  # - directory: rtl88-numix_black
-  #   version: Numix-BLACK
-  # - directory: rtl88-plata_dark_arc
-  #   version: Plata-Dark-Arc
-  # - directory: rtl88-solarized_black
-  #   version: Solarized-BLACK
-  # - directory: rtl88-ultimate_plata_dark_complete
-  #   version: Ultimate-Plata-Dark-Complete-Desktop
-
-# --- Thunderbird ---
-# thunderbird_ext_official: []
-# List of urls pages in which an XPI download link can be found.
-# Note: The first found XPI download url will be used
-# thunderbird_ext_custom: []
 
 # --- urxvt ---
 urxvt_extensions: #[]
@@ -470,5 +360,3 @@ zsh_plugins_package_manager: #[]
   - powerline
 omz_install: false
 omz_configure: false
-
-
