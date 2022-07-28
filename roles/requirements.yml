@@ -110,6 +110,6 @@
   src: https://github.com/skaary/ansible-role-zathura.git
   scm: git
 
-# - name: zsh
-#   src: https://github.com/skaary/ansible-role-zsh.git
-#   scm: git
+- name: zsh
+  src: https://github.com/skaary/ansible-role-zsh.git
+  scm: git

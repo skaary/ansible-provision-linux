@@ -3,57 +3,113 @@
   roles:
     - role: anki
       tags: anki
+      when: anki_install
+    # - { role: anki, when: anki_install, tags: anki }
+
     - role: discord
       tags: discord
+      when: discord_install
+
     - role: docker
       tags: docker
+      when: docker_install
+
     - role: dotfiles
       tags: dotfiles
+      when: dotfiles_install
+
     - role: fonts
       tags: fonts
+      when: fonts_install
+
     - role: fzf
       tags: fzf
+      when: fzf_install
+
     - role: gimp
       tags: gimp
+      when: gimp_install
+
     - role: git
       tags: git
+      when: git_install
+
     - role: i3
       tags: i3
+      when: i3_install
+
     - role: jetbrains_dev_tools
       tags: jetbrains
+      when: jetbrains_install
+
     - role: mpd
       tags: mpd
+      when: mpd_install
+
     - role: network_manager
       tags: network_manager
+      when: network_manager_install
+
     - role: ubuntu_setup
       tags: ubuntu_setup
+      when: ubuntu_setup_install
+
     - role: packer
       tags: packer
-    # - role: polybar
-    #   tags: polybar
+      when: packer_install
+
+    - role: polybar
+      tags: polybar
+      when: polybar_install
+
     - role: qemu
       tags: qemu
+      when: qemu_install
+
     - role: ranger
       tags: ranger
+      when: ranger_install
+
     - role: rtl88_themes
       tags: rtl88_themes
+      when: rtl88_install
+
     - role: syncthing
       tags: syncthing
+      when: syncthing_install
+
     - role: urxvt
       tags: urxvt
+      when: urxvt_install
+
     - role: vagrant
       tags: vagrant
+      when: vagrant_install
+
     - role: vim
       tags: vim
+      when: vim_install
+
     - role: virtualbox
       tags: virtualbox
+      when: virtualbox_install
+
     - role: vscode
       tags: vscode
+      when: vscode_install
+
     - role: xdg_mime_meta
       tags: xdg
+      when: xdg_install
+
     - role: ytdlp
       tags: ytdlp
+      when: ytdlp_install
+
     - role: zathura
       tags: zathura
-    # - role: zsh
-    #   tags: zsh
+      when: zathura_install
+
+    - role: zsh
+      tags: zsh
+      when: zsh_install

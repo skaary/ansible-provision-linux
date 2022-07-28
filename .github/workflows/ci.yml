@@ -6,6 +6,8 @@ name: CI
     branches:
       - master
       - main
+    paths:
+      - "!README.md"
 
 jobs:
   test:

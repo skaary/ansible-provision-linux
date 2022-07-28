@@ -30,20 +30,6 @@ Customizable Ansible setup to provision your workstation with Linux Mint or Ubun
 ## Quick Start
 
 Make sure your system meets the **[requirements](#requirements)** before you start. Everything python related (e.g. Ansible) will be installed into a virtual python environment.
-<!-- If this is not desired, .... -->
-
-### Fully provision your system from scratch
-
-Use this to provision your system from scratch, when you have already submitted your profile upstream.
-The only requirements are `bash` and `sudo`, everything else will be installed automatically.
-
-```bash
-# Provision default profile
-curl https://raw.githubusercontent.com/skaary/ansible-provision-linux/master/bootstrap.sh | bash
-
-# Provision profile 'generic-all'
-curl https://raw.githubusercontent.com/skaary/ansible-provision-linux/master/bootstrap.sh | bash -s generic-all
-```
 
 ### Manually provision your system from scratch
 
@@ -64,21 +50,22 @@ make deploy-import-roles
 make deploy-tools PROFILE=skaary
 ```
 
-<!-- #### Manually provision your system from scratch without python virtual environment
+The recording below demonstrates a basic manual provision (to view it, click on the embedded image).
 
-Use this to provision your system from scratch, when you don't have a profile submitted to upstream yet **and** you do not want to install everything in a virtual python environment. A working install of Ansible is assumed.
+[![asciicast](https://asciinema.org/a/514070.png)](https://asciinema.org/a/514070)
+
+### Fully provision your system from scratch
+
+Use this to provision your system from scratch, when you have already submitted your profile upstream.
+The only requirements are `bash` and `sudo`, everything else will be installed automatically.
 
 ```bash
-# 1. Clone this project
-git clone https://github.com/skaary/ansible-provision-linux
-cd ansible-debian
+# Provision default profile
+curl https://raw.githubusercontent.com/skaary/ansible-provision-linux/master/bootstrap.sh | bash
+
+# Provision profile 'generic-all'
+curl https://raw.githubusercontent.com/skaary/ansible-provision-linux/master/bootstrap.sh | bash -s generic-all
 ```
-
-```bash
-ansible-galaxy install -r roles/requirements.yml -p ./roles
-ansible-playbook -i inventory playbook.yml --limit \$profile --diff --ask-become-pass $(ARG)
-.venv/bin/ansible-playbook -i inventory playbook.yml --limit ${PROFILE} --diff --ask-become-pass $(ARG) -t $(ROLE)
-``` -->
 
 #### Dry-run the tools installation
 
@@ -105,7 +92,6 @@ By default, the following roles will be downloaded into the `role/` directory:
 | [Dotfiles](https://github.com/skaary/ansible-role-dotfiles)                       | Installs my dotfiles to the system.                                                                                                                       |
 | [Fonts](https://github.com/skaary/ansible-role-fonts)                             | Installs fonts from the apt repository and [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts#font-installation).                                       |
 | [fzf](https://github.com/skaary/ansible-role-fzf)                                 | Installs the interactive unix filter [fzf](https://github.com/junegunn/fzf).                                                                              |
-| [Gimp](https://github.com/skaary/ansible-role-gimp)                               | Installs the image editor [Gimp](https://www.gimp.org/).                                                                                                  |
 | [Git](https://github.com/skaary/ansible-role-git)                                 | Installs the version control system [Git](https://git-scm.com/) and enables the configuration of gitconfig and gitignore.                                 |
 | [i3](https://github.com/skaary/ansible-role-i3)                                   | Installs the tiling window manager [i3wm](https://www.i3wm.org/) or the fork [i3-gaps](https://github.com/Airblader/i3).                                  |
 | [Jetbrains Dev Tools](https://github.com/skaary/ansible-role-jetbrains-dev-tools) | Installs the Jetbrains IDEs [IntelliJ IDEA](https://www.jetbrains.com/idea/) and [PyCharm](https://www.jetbrains.com/pycharm).                            |
@@ -139,9 +125,7 @@ Each profile in Ansible automatically inherits all settings from [group_vars/all
 
 In order to actually **customize your profile**, you will have to create a file in [host_vars/](host_vars/) by the same name you have specified in [inventory](inventory). You can copy [group_vars/all.yml](group_vars/all.yml) directly or use an already existing profile from `host_vars`, such as [host_vars/generic-all.yml](host_vars/generic-all.yml).
 
-To better understand how it works, you can follow this step-by-step example for creating a new profile:
-
-<!-- add ascicinema here -->
+To better understand how it works, you can view the recording in [manually provision your system from scratch](#manually-provision-your-system-from-scratch) or follow this step-by-step example for creating a new profile:
 
 ### Assumption
 
@@ -241,7 +225,7 @@ Change `PROFILE` accordingly.
 
 ### Enable role
 
-Look for the package section and set them to `install` if an execution of the role is desired; any other value will ignore the role.
+Look for the package section and set them to `true` if an execution of the role is desired; otherwise, set it to `false` to ignore the role.
 
 ```bash
 $ vi host_vars/<name>.yml
@@ -249,11 +233,9 @@ $ vi host_vars/<name>.yml
 
 ```yml
 ---
-i3:         'install' # role will be executed
-docker:     'install'
-anki:       'install'
-docker:     ''        # role will be ignored and not executed
-discord:    'ignore'  # role will be ignored and not executed
+i3_install:       'true'    # role will be executed
+docker_install:   'true'
+discord:          'false'  # role will be ignored and not executed
 ```
 
 ### Package Options
