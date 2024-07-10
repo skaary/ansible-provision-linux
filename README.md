@@ -1,12 +1,12 @@
 # Ansible Ubuntu
 
-**[Quick Start](#quick-start)** | **[Features](#features)** | **[Custom profiles](#create-custom-profiles)** | **[Test your profile](#test-your-profile)**  | **[Options](#options)** | **[Requirements](#requirements)** | **[License](#license)**
+**[Quick Start](#quick-start)** | **[Roles included](#roles-included)** | **[Custom profiles](#create-custom-profiles)** | **[Test your profile](#test-your-profile)**  | **[Options](#options)** | **[Requirements](#requirements)** | **[License](#license)**
 
 [![CI](https://github.com/skaary/ansible-provision-linux/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/skaary/ansible-provision-linux/actions?query=workflow%3Ci)
 
 Customizable Ansible setup to provision your workstation with Linux Mint or Ubuntu.
 
-#### Table of Contents
+## Table of Contents
 
 1. **[Quick Start](#quick-start)**
 2. **[Roles included](#roles-included)**
@@ -29,7 +29,8 @@ Customizable Ansible setup to provision your workstation with Linux Mint or Ubun
 
 ## Quick Start
 
-Make sure your system meets the **[requirements](#requirements)** before you start. Everything python related (e.g. Ansible) will be installed into a virtual python environment.
+> [!IMPORTANT]
+> Make sure your system meets the **[requirements](#requirements)** before you start. Everything python related (e.g. Ansible) will be installed into a virtual python environment.
 
 ### Manually provision your system from scratch
 
@@ -82,7 +83,9 @@ make diff-tools PROFILE=generic-all ROLE=i3
 
 ## Roles included
 
-By default, the following roles will be downloaded into the `role/` directory:
+<!-- markdownlint-disable no-inline-html -->
+<details>
+<summary> By default, the following roles will be downloaded into the `role/` directory: </summary>
 
 | Role Repository                                                                   | Description                                                                                                                                               |
 | :-------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -95,6 +98,7 @@ By default, the following roles will be downloaded into the `role/` directory:
 | [Git](https://github.com/skaary/ansible-role-git)                                 | Installs the version control system [Git](https://git-scm.com/) and enables the configuration of gitconfig and gitignore.                                 |
 | [i3](https://github.com/skaary/ansible-role-i3)                                   | Installs the tiling window manager [i3wm](https://www.i3wm.org/) or the fork [i3-gaps](https://github.com/Airblader/i3).                                  |
 | [Jetbrains Dev Tools](https://github.com/skaary/ansible-role-jetbrains-dev-tools) | Installs the Jetbrains IDEs [IntelliJ IDEA](https://www.jetbrains.com/idea/) and [PyCharm](https://www.jetbrains.com/pycharm).                            |
+| [Kitty](https://github.com/skaary/ansible-role-kitty)                             | Installs the terminal emulator [Kitty](https://sw.kovidgoyal.net/kitty/).                                                                                 |
 | [mpd](https://github.com/skaary/ansible-role-mpd)                                 | Installs [mpd](https://www.musicpd.org/) and optionally [ncmpcpp](https://github.com/ncmpcpp/ncmpcpp).                                                    |
 | [Network Manager](https://github.com/skaary/ansible-role-network-manager)         | Installs [NetworkManager](https://wiki.debian.org/NetworkManager) and enables the additional install of its plugins.                                      |
 | [Packer](https://github.com/skaary/ansible-role-packer)                           | Installs [packer](https://www.packer.io/) for automated machine image creation.                                                                           |
@@ -103,6 +107,7 @@ By default, the following roles will be downloaded into the `role/` directory:
 | [Ranger](https://github.com/skaary/ansible-role-ranger)                           | Installs the VI key bindings based file manager [ranger](https://github.com/ranger/ranger).                                                               |
 | [Themes](https://github.com/skaary/ansible-role-rtl88_themes)                     | Enables the installation of themes designed by [rtlewis88](https://github.com/rtlewis88/) such as the popular arc dark theme.                             |
 | [Syncthing](https://github.com/skaary/ansible-role-syncthing)                     | Installs the file synchronization program [syncthing](https://syncthing.net/).                                                                            |
+| [Ubuntu Setup](https://github.com/skaary/ansible-role-ubuntu-setup)               | Role that performs various first-run installation and setup tasks for Ubuntu based systems.                                                               |
 | [urxvt](https://github.com/skaary/ansible-role-urxvt)                             | Installs the terminal emulator [urxvt](https://linux.die.net/man/1/urxvt).                                                                                |
 | [Vagrant](https://github.com/skaary/ansible-role-vagrant)                         | Installs [vagrant](https://www.vagrantup.com/) to build and manage virtual machine environments.                                                          |
 | [Vim](https://github.com/skaary/ansible-role-vim)                                 | Installs the the text editor [vim](https://www.vim.org/) and allows for installation of vim plugins.                                                      |
@@ -111,11 +116,15 @@ By default, the following roles will be downloaded into the `role/` directory:
 | [XDG Mime](https://github.com/skaary/ansible-role-xdg-mime-meta)                  | An ansible roles that sets xdg-mime-meta preferences (see [XDG_MIME Applications](https://wiki.archlinux.org/title/XDG_MIME_Applications)).               |
 | [yt-dlp](https://github.com/skaary/ansible-role-ytdlp)                            | Installs [yt-dlp](https://github.com/yt-dlp/yt-dlp) to download videos from youtube.com or other video platforms.                                         |
 | [Zathura](https://github.com/skaary/ansible-role-zathura)                         | Installs the document viewer [Zathura](https://pwmt.org/projects/zathura/).                                                                               |
-| [zsh](https://github.com/skaary/ansible-role-zsh)                                 | Installs the unix shell [zsh](https://www.zsh.org/) with plugins and optionally the [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) framework.        |
+| [zsh](https://github.com/skaary/ansible-role-zsh)                                 | Installs the unix shell [zsh](https://www.zsh.org/) with plugins and optionally the [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) framework.            |
+
+</details>
+<!-- markdownlint-enable no-inline-html -->
 
 Adding new roles can be done by either appending new roles to the `roles/requirements.yml` file or by manually downloading them into the `role/` directory.
 
-> Note: Ansible role names need to be seperated by an underscore instead of dashes. For instance, Ansible only accepts `mysql_aws` and not `mysql-aws`.
+> [!NOTE]
+> Ansible role names need to be seperated by an underscore instead of dashes. For instance, Ansible only accepts `mysql_aws` and not `mysql-aws`.
 
 ## Create custom profiles
 
@@ -183,7 +192,8 @@ Before actually running any new profile / provisioning any system it is advised 
 
 ### Docker
 
-> **Note:** The Docker image will always be auto-build before running the tests.
+> [!NOTE]
+> The Docker image will always be auto-build before running the tests.
 
 Before running you should be aware of a few arguments that can be applied to the `make` commands. See the table below:
 
@@ -228,7 +238,7 @@ Change `PROFILE` accordingly.
 Look for the package section and set them to `true` if an execution of the role is desired; otherwise, set it to `false` to ignore the role.
 
 ```bash
-$ vi host_vars/<name>.yml
+vi host_vars/<name>.yml
 ```
 
 ```yml
@@ -263,7 +273,8 @@ For a more exhaustive overview of available options head to the [respective role
 
 ## Requirements
 
-Before you can start there are a few tools required that must be present on the system. Just copy-paste those commands into your terminal.
+To ensure everything runs smoothly, you'll need to have certain tools installed on your system. Please copy and paste
+the commands below into your terminal. These commands will check if the required tools are installed and install them if they're missing.
 
 ### Install system requirements
 
